@@ -1,0 +1,86 @@
+[
+  {
+    "id": "ssl-cert-local",
+    "title": "Create Local SSL Cert",
+    "description": "Generate a self-signed SSL certificate for local development",
+    "language": "bash",
+    "code": "openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt -subj \"/CN=localhost\""
+  },
+  {
+    "id": "port-kill",
+    "title": "Kill Process on Port",
+    "description": "Find and kill process running on specific port",
+    "language": "bash",
+    "code": "lsof -ti:3000 | xargs kill -9"
+  },
+  {
+    "id": "git-branch-cleanup",
+    "title": "Git Branch Cleanup",
+    "description": "Remove all local branches that were merged to main",
+    "language": "bash",
+    "code": "git branch --merged main | grep -v \"^[ *]*main\" | xargs git branch -d"
+  },
+  {
+    "id": "docker-cleanup",
+    "title": "Docker Full Cleanup",
+    "description": "Remove all unused Docker resources",
+    "language": "bash",
+    "code": "docker system prune -af --volumes"
+  },
+  {
+    "id": "npm-outdated",
+    "title": "Update NPM Packages",
+    "description": "Update all packages to latest version",
+    "language": "bash",
+    "code": "npm outdated -g && npm update -g"
+  },
+  {
+    "id": "network-ports",
+    "title": "List Open Ports",
+    "description": "Show all open network ports and applications",
+    "language": "bash",
+    "code": "sudo lsof -PiTCP -sTCP:LISTEN"
+  },
+  {
+    "id": "find-large-files",
+    "title": "Find Large Files",
+    "description": "Find files larger than 100MB in current directory",
+    "language": "bash",
+    "code": "find . -type f -size +100M -exec ls -lh {} \\;"
+  },
+  {
+    "id": "compress-images",
+    "title": "Compress Images",
+    "description": "Compress all PNG files in current directory",
+    "language": "bash",
+    "code": "find . -name \"*.png\" -exec convert {} -strip -quality 85 {} \\;"
+  },
+  {
+    "id": "nginx-test",
+    "title": "Test Nginx Config",
+    "description": "Test Nginx configuration for syntax errors",
+    "language": "bash",
+    "code": "nginx -t && nginx -T"
+  },
+  {
+    "id": "ssh-keygen-secure",
+    "title": "Generate SSH Key",
+    "description": "Create a secure SSH key with custom comment",
+    "language": "bash",
+    "code": "ssh-keygen -t ed25519 -C \"$(whoami)@$(hostname)-$(date -I)\" -f ~/.ssh/id_ed25519"
+  },
+  {
+    "id": "git-large-files",
+    "title": "Find Large Git Files",
+    "description": "Find the largest files in Git history",
+    "language": "bash",
+    "code": "git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sed -n 's/^blob //p' | sort -nr -k2 | head -10"
+  },
+  {
+    "id": "system-info",
+    "title": "System Info",
+    "description": "Display comprehensive system information",
+    "language": "bash",
+    "code": "system_profiler SPHardwareDataType SPSoftwareDataType SPStorageDataType"
+  }
+]

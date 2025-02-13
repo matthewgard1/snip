@@ -1,0 +1,14 @@
+[
+  {
+    "id": "docker-container-cleanup",
+    "tags": ["docker", "cleanup", "maintenance"]
+  },
+  {
+    "id": "docker-image-cleanup",
+    "tags": ["docker", "cleanup", "maintenance"]
+  },
+  {
+    "id": "docker-cleanup",
+    "tags": ["docker", "cleanup", "maintenance", "system"]
+  }
+]

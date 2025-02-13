@@ -6,6 +6,7 @@ interface SnippetCardProps {
   description: string;
   language: string;
   code: string;
+  tags?: string[];
 }
 
 const languageEmojis: Record<string, string> = {
@@ -17,7 +18,7 @@ const languageEmojis: Record<string, string> = {
   go: '🦫',
 };
 
-export function SnippetCard({ title, description, language, code }: SnippetCardProps) {
+export function SnippetCard({ title, description, language, code, tags }: SnippetCardProps) {
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
@@ -49,25 +50,40 @@ export function SnippetCard({ title, description, language, code }: SnippetCardP
             <h3 className="text-sm font-semibold text-white whitespace-nowrap">{title}</h3>
             <p className="text-gray-300 text-xs truncate">— {description}</p>
           </div>
-          <span className="flex-shrink-0 text-xs font-mono text-gray-400 bg-gray-600 px-1.5 py-0.5 rounded">
-            {language}
-          </span>
-          <button
-            onClick={handleCopy}
-            className="flex-shrink-0 flex items-center gap-1 px-1.5 py-0.5 rounded bg-gray-600 hover:bg-gray-500 text-white text-xs transition-colors"
-          >
-            {copied ? (
-              <>
-                <Check size={12} />
-                <span>Copied!</span>
-              </>
-            ) : (
-              <>
-                <Copy size={12} />
-                <span>Copy</span>
-              </>
+          <div className="flex items-center gap-1.5">
+            {tags && tags.length > 0 && (
+              <div className="flex gap-1">
+                {tags.map(tag => (
+                  <a
+                    key={tag}
+                    href={`?tag=${tag}`}
+                    className="text-xs px-1.5 py-0.5 rounded bg-gray-600 text-gray-300 hover:bg-gray-500 hover:text-white transition-colors"
+                  >
+                    {tag}
+                  </a>
+                ))}
+              </div>
             )}
-          </button>
+            <span className="flex-shrink-0 text-xs font-mono text-gray-400 bg-gray-600 px-1.5 py-0.5 rounded">
+              {language}
+            </span>
+            <button
+              onClick={handleCopy}
+              className="flex-shrink-0 flex items-center gap-1 px-1.5 py-0.5 rounded bg-gray-600 hover:bg-gray-500 text-white text-xs transition-colors"
+            >
+              {copied ? (
+                <>
+                  <Check size={12} />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={12} />
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
       <div className="bg-gray-800">

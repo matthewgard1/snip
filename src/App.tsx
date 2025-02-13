@@ -1,36 +1,60 @@
-import React, { useState, useMemo } from 'react';
-import { Search, Code2, X } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Search, Code2, X, Tag } from 'lucide-react';
 import { snippets } from './data/snippets';
 import { SnippetCard } from './components/SnippetCard';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  const [tagFilter, setTagFilter] = useState<string | null>(null);
+
+  // Watch for URL changes
+  useEffect(() => {
+    const checkUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      const tag = params.get('tag');
+      setTagFilter(tag);
+    };
+
+    // Check immediately
+    checkUrl();
+
+    // Set up an interval to check the URL
+    const interval = setInterval(checkUrl, 100);
+    return () => clearInterval(interval);
+  }, []);
 
   const languages = useMemo(() => {
     const uniqueLanguages = new Set(snippets.map(s => s.language));
     return Array.from(uniqueLanguages).sort();
   }, []);
 
+  const tags = useMemo(() => {
+    const uniqueTags = new Set(snippets.flatMap(s => s.tags || []));
+    return Array.from(uniqueTags).sort();
+  }, []);
+
   const filteredSnippets = snippets.filter(snippet => {
     const matchesSearch = 
       snippet.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       snippet.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      snippet.language.toLowerCase().includes(searchTerm.toLowerCase());
+      snippet.language.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      snippet.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     
     const matchesLanguage = !selectedLanguage || snippet.language === selectedLanguage;
+    const matchesTag = !tagFilter || snippet.tags?.includes(tagFilter);
     
-    return matchesSearch && matchesLanguage;
+    return matchesSearch && matchesLanguage && matchesTag;
   });
 
   return (
     <div className="min-h-screen bg-gray-900">
       <header className="bg-gray-800 border-b border-gray-700 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-1.5">
+        <div className="max-w-3xl ml-auto mr-4">
           <div className="flex items-center gap-3 h-8">
             <div className="flex items-center gap-1.5 text-white">
               <Code2 size={20} />
-              <h1 className="text-base font-bold">Snippets</h1>
+              <h1 className="text-base font-bold">Dev Snippets</h1>
             </div>
             <div className="relative flex-1 max-w-xl">
               <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
@@ -64,15 +88,29 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+      {tagFilter && (
+        <div className="max-w-3xl ml-auto mr-4">
+          <div className="flex items-center gap-1.5 text-xs text-gray-400">
+            <Tag size={12} />
+            <span>Filtered by tag:</span>
+            <span className="text-blue-400">{tagFilter}</span>
+            <a href="?" className="hover:text-blue-300">
+              <X size={12} />
+            </a>
+          </div>
+        </div>
+      )}
+
+      <main className="max-w-3xl ml-auto mr-4 mt-2">
+        <div className="flex flex-col gap-px">
           {filteredSnippets.map(snippet => (
-            <div key={snippet.id} className="p-px first:pt-0 last:pb-0">
+            <div key={snippet.id}>
               <SnippetCard
                 title={snippet.title}
                 description={snippet.description}
                 language={snippet.language}
                 code={snippet.code}
+                tags={snippet.tags}
               />
             </div>
           ))}

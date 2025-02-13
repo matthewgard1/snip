@@ -1,12 +1,18 @@
-interface Snippet {
-  id: string;
-  title: string;
-  description: string;
-  language: string;
-  code: string;
-}
+import type { Snippet, TagMapping } from '../types';
 
-export const snippets: Snippet[] = [
+// Import all JSON files from the json directory and its subdirectories
+const jsonModules = import.meta.glob<Snippet[]>('./json/**/*.json', { eager: true });
+const tagModules = import.meta.glob<TagMapping[]>('./json-tags/**/*.json', { eager: true });
+
+// Convert the static snippets array to a const to ensure type safety
+const staticSnippets: Snippet[] = [
+  {
+    id: 'complex-log-parser',
+    title: 'Complex Log Parser',
+    description: 'Parse and analyze Apache logs with sed and awk, grouping by IP and counting requests',
+    language: 'bash',
+    code: `cat access.log | sed -E 's/([0-9]{1,3}\.){3}[0-9]{1,3}/\0/g' | awk '{ip=$1; req=$6" "$7; status=$9; bytes=$10; print ip,req,status,bytes}' | sort | awk '{ip=$1; reqs[ip]++; bytes[ip]+=$4} END {for (i in reqs) printf "IP: %s, Requests: %d, Total Bytes: %d, Avg Bytes/Req: %.2f\\n", i, reqs[i], bytes[i], bytes[i]/reqs[i]}' | sort -k4 -nr`
+  },
   {
     id: 'chrome-new-tab',
     title: 'Chrome New Tab',
@@ -46,7 +52,8 @@ end tell`
     title: 'Node HTTP Server',
     description: 'Start a simple HTTP server using npx',
     language: 'bash',
-    code: 'npx http-server . -p 8000'
+    code: 'npx http-server . -p 8000',
+    tags: ['sue']
   },
   {
     id: 'git-undo-commit',
@@ -60,7 +67,8 @@ end tell`
     title: 'Git Branch Cleanup',
     description: 'Delete all local branches that have been merged into main',
     language: 'bash',
-    code: 'git branch --merged main | grep -v "^[ *]*main" | xargs git branch -d'
+    code: 'git branch --merged main | grep -v "^[ *]*main" | xargs git branch -d',
+    _v: 1
   },
   {
     id: 'git-sync-fork',
@@ -121,3 +129,49 @@ git merge upstream/main`
 }, []);`
   }
 ];
+
+// Load and merge tag mappings
+const tagMappings = Object.values(tagModules).flatMap(module => {
+  if (module && Array.isArray(module.default)) {
+    return module.default;
+  }
+  return [];
+});
+
+// Create a map of id to tags from tag mappings
+const tagMap = new Map<string, Set<string>>();
+tagMappings.forEach(mapping => {
+  const existingTags = tagMap.get(mapping.id) || new Set<string>();
+  mapping.tags.forEach(tag => existingTags.add(tag));
+  tagMap.set(mapping.id, existingTags);
+});
+
+// Merge all JSON snippets with static snippets and deduplicate
+const jsonSnippets = Object.values(jsonModules).flatMap(module => {
+  if (module && Array.isArray(module.default)) {
+    return module.default;
+  }
+  return [];
+});
+
+// Create a Map to store the latest version of each snippet
+const snippetMap = new Map<string, Snippet>();
+
+// Process all snippets and keep the highest version or last seen
+[...staticSnippets, ...jsonSnippets].forEach(snippet => {
+  const existing = snippetMap.get(snippet.id);
+  if (!existing || 
+      (snippet._v && (!existing._v || snippet._v > existing._v)) ||
+      (!snippet._v && !existing._v)) {
+    // Merge tags from tag mappings if they exist
+    const mappedTags = tagMap.get(snippet.id);
+    if (mappedTags) {
+      const allTags = new Set([...(snippet.tags || []), ...mappedTags]);
+      snippet.tags = Array.from(allTags);
+    }
+    snippetMap.set(snippet.id, snippet);
+  }
+});
+
+// Export all snippets
+export const snippets = Array.from(snippetMap.values());

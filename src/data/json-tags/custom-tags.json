@@ -1,0 +1,14 @@
+[
+  {
+    "id": "git-sync-fork",
+    "tags": ["bob"]
+  },
+  {
+    "id": "git-branch-cleanup",
+    "tags": ["bob"]
+  },
+  {
+    "id": "node-http-server",
+    "tags": ["sue"]
+  }
+]

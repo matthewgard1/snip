@@ -1,0 +1,18 @@
+{
+  "default": [
+    {
+      "id": "git-stash-specific",
+      "title": "Git Stash Specific Files",
+      "description": "Stash only specific files instead of all changes",
+      "language": "bash",
+      "code": "git stash push -m \"my_stash\" path/to/file1 path/to/file2"
+    },
+    {
+      "id": "git-commit-template",
+      "title": "Git Commit Template",
+      "description": "Set up a commit message template",
+      "language": "bash",
+      "code": "git config --global commit.template ~/.gitmessage"
+    }
+  ]
+}

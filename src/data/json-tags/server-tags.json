@@ -1,0 +1,14 @@
+[
+  {
+    "id": "python-http-server",
+    "tags": ["python", "server", "development"]
+  },
+  {
+    "id": "node-http-server",
+    "tags": ["node", "server", "development"]
+  },
+  {
+    "id": "npx-serve",
+    "tags": ["node", "server", "development", "npx"]
+  }
+]

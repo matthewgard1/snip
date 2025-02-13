@@ -1,0 +1,86 @@
+[
+  {
+    "id": "mac-install-brew",
+    "title": "Install Homebrew",
+    "description": "Install Homebrew package manager with auto-accept",
+    "language": "bash",
+    "code": "/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" </dev/null"
+  },
+  {
+    "id": "mac-install-dev-tools",
+    "title": "Install Xcode CLI Tools",
+    "description": "Install Xcode Command Line Tools without full Xcode",
+    "language": "bash",
+    "code": "xcode-select --install"
+  },
+  {
+    "id": "mac-install-node",
+    "title": "Install Node.js",
+    "description": "Install Node.js LTS via nvm with auto-accept",
+    "language": "bash",
+    "code": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash && source ~/.zshrc && nvm install --lts --default"
+  },
+  {
+    "id": "mac-install-python",
+    "title": "Install Python Tools",
+    "description": "Install Python, pip, and pyenv via Homebrew",
+    "language": "bash",
+    "code": "brew install python@3.11 pyenv pipenv poetry --quiet"
+  },
+  {
+    "id": "mac-install-vscode",
+    "title": "Install VS Code",
+    "description": "Install Visual Studio Code via Homebrew",
+    "language": "bash",
+    "code": "brew install --cask visual-studio-code --quiet"
+  },
+  {
+    "id": "mac-install-git",
+    "title": "Install Git Tools",
+    "description": "Install Git and related tools via Homebrew",
+    "language": "bash",
+    "code": "brew install git gh git-lfs --quiet"
+  },
+  {
+    "id": "mac-install-docker",
+    "title": "Install Docker",
+    "description": "Install Docker Desktop for Mac via Homebrew",
+    "language": "bash",
+    "code": "brew install --cask docker --quiet"
+  },
+  {
+    "id": "mac-install-db",
+    "title": "Install Databases",
+    "description": "Install common databases via Homebrew",
+    "language": "bash",
+    "code": "brew install postgresql@15 redis sqlite --quiet"
+  },
+  {
+    "id": "mac-install-utils",
+    "title": "Install Dev Utils",
+    "description": "Install common development utilities",
+    "language": "bash",
+    "code": "brew install wget curl jq fzf ripgrep fd tree htop tldr --quiet"
+  },
+  {
+    "id": "mac-install-fonts",
+    "title": "Install Dev Fonts",
+    "description": "Install popular programming fonts",
+    "language": "bash",
+    "code": "brew tap homebrew/cask-fonts && brew install --cask font-fira-code font-jetbrains-mono font-cascadia-code --quiet"
+  },
+  {
+    "id": "mac-install-browsers",
+    "title": "Install Browsers",
+    "description": "Install development browsers",
+    "language": "bash",
+    "code": "brew install --cask google-chrome firefox brave-browser --quiet"
+  },
+  {
+    "id": "mac-install-apps",
+    "title": "Install Dev Apps",
+    "description": "Install common development apps",
+    "language": "bash",
+    "code": "brew install --cask iterm2 postman insomnia rectangle --quiet"
+  }
+]

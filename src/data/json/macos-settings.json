@@ -1,0 +1,86 @@
+[
+  {
+    "id": "macos-show-hidden-files",
+    "title": "Show Hidden Files",
+    "description": "Show hidden files in Finder (restart Finder after)",
+    "language": "bash",
+    "code": "defaults write com.apple.finder AppleShowAllFiles YES"
+  },
+  {
+    "id": "macos-disable-capslock",
+    "title": "Disable Caps Lock",
+    "description": "Disable the Caps Lock key system-wide",
+    "language": "bash",
+    "code": "hidutil property --set '{\"UserKeyMapping\":[{\"HIDKeyboardModifierMappingSrc\":0x700000039,\"HIDKeyboardModifierMappingDst\":0x0}]}'"
+  },
+  {
+    "id": "macos-dock-autohide",
+    "title": "Auto-hide Dock",
+    "description": "Enable auto-hiding for the Dock with no animation delay",
+    "language": "bash",
+    "code": "defaults write com.apple.dock autohide -bool true && defaults write com.apple.dock autohide-delay -float 0 && killall Dock"
+  },
+  {
+    "id": "macos-disable-dsstore",
+    "title": "Disable .DS_Store",
+    "description": "Prevent .DS_Store file creation on network volumes",
+    "language": "bash",
+    "code": "defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true"
+  },
+  {
+    "id": "macos-show-path-finder",
+    "title": "Show Path in Finder",
+    "description": "Show full path in Finder's title bar",
+    "language": "bash",
+    "code": "defaults write com.apple.finder _FXShowPosixPathInTitle -bool true && killall Finder"
+  },
+  {
+    "id": "macos-fast-key-repeat",
+    "title": "Fast Key Repeat",
+    "description": "Set ultra-fast keyboard repeat rate for coding",
+    "language": "bash",
+    "code": "defaults write NSGlobalDomain KeyRepeat -int 1 && defaults write NSGlobalDomain InitialKeyRepeat -int 10"
+  },
+  {
+    "id": "macos-disable-autocorrect",
+    "title": "Disable Auto-Correct",
+    "description": "Disable automatic text correction for coding",
+    "language": "bash",
+    "code": "defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false"
+  },
+  {
+    "id": "macos-show-extensions",
+    "title": "Show File Extensions",
+    "description": "Always show all file extensions in Finder",
+    "language": "bash",
+    "code": "defaults write NSGlobalDomain AppleShowAllExtensions -bool true && killall Finder"
+  },
+  {
+    "id": "macos-expand-save",
+    "title": "Expand Save Dialog",
+    "description": "Always show expanded save dialog by default",
+    "language": "bash",
+    "code": "defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true"
+  },
+  {
+    "id": "macos-disable-shadow",
+    "title": "Disable Screenshot Shadow",
+    "description": "Disable window shadow in screenshots",
+    "language": "bash",
+    "code": "defaults write com.apple.screencapture disable-shadow -bool true && killall SystemUIServer"
+  },
+  {
+    "id": "macos-enable-dev-mode",
+    "title": "Enable Developer Mode",
+    "description": "Enable developer mode to skip code signing",
+    "language": "bash",
+    "code": "DevToolsSecurity -enable && sudo dscl . append /Groups/_developer GroupMembership $(whoami)"
+  },
+  {
+    "id": "macos-show-build-time",
+    "title": "Show Xcode Build Time",
+    "description": "Show build time in Xcode",
+    "language": "bash",
+    "code": "defaults write com.apple.dt.Xcode ShowBuildOperationDuration YES"
+  }
+]

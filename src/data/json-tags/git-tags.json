@@ -1,0 +1,18 @@
+[
+  {
+    "id": "git-undo-commit",
+    "tags": ["git", "undo", "version-control"]
+  },
+  {
+    "id": "git-branch-cleanup",
+    "tags": ["git", "cleanup", "maintenance"]
+  },
+  {
+    "id": "git-sync-fork",
+    "tags": ["git", "github", "collaboration"]
+  },
+  {
+    "id": "git-large-files",
+    "tags": ["git", "maintenance", "performance"]
+  }
+]

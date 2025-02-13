@@ -1,0 +1,88 @@
+{
+  "default": [
+    {
+      "id": "npx-serve",
+      "title": "Static File Server",
+      "description": "Serve static files from current directory with hot reload",
+      "language": "bash",
+      "code": "npx serve"
+    },
+    {
+      "id": "npx-json-server",
+      "title": "Mock REST API",
+      "description": "Create a full fake REST API from a JSON file",
+      "language": "bash",
+      "code": "npx json-server --watch db.json --port 3000"
+    },
+    {
+      "id": "npx-kill-port",
+      "title": "Kill Process on Port",
+      "description": "Kill any process running on specified port",
+      "language": "bash",
+      "code": "npx kill-port 3000"
+    },
+    {
+      "id": "npx-tldr",
+      "title": "Command Examples",
+      "description": "Show practical examples of command usage",
+      "language": "bash",
+      "code": "npx tldr git"
+    },
+    {
+      "id": "npx-http-echo-server",
+      "title": "HTTP Echo Server",
+      "description": "Start a server that echoes back request details",
+      "language": "bash",
+      "code": "npx http-echo-server"
+    },
+    {
+      "id": "npx-license",
+      "title": "Generate License",
+      "description": "Generate an open source license file",
+      "language": "bash",
+      "code": "npx license mit > LICENSE"
+    },
+    {
+      "id": "npx-sort-package-json",
+      "title": "Sort package.json",
+      "description": "Sort package.json fields in standard order",
+      "language": "bash",
+      "code": "npx sort-package-json"
+    },
+    {
+      "id": "npx-npm-check-updates",
+      "title": "Check Package Updates",
+      "description": "Check for outdated npm dependencies",
+      "language": "bash",
+      "code": "npx npm-check-updates"
+    },
+    {
+      "id": "npx-depcheck",
+      "title": "Check Dependencies",
+      "description": "Check for unused and missing dependencies",
+      "language": "bash",
+      "code": "npx depcheck"
+    },
+    {
+      "id": "npx-envinfo",
+      "title": "Environment Info",
+      "description": "Get system environment information",
+      "language": "bash",
+      "code": "npx envinfo --system --binaries --browsers"
+    },
+    {
+      "id": "npx-prettier",
+      "title": "Format Files",
+      "description": "Format all supported files in current directory",
+      "language": "bash",
+      "code": "npx prettier --write ."
+    },
+    {
+      "id": "npx-live-server",
+      "title": "Live Development Server",
+      "description": "Start a development server with live reload",
+      "language": "bash",
+      "code": "npx live-server --port=8080"
+    }
+  ]
+}

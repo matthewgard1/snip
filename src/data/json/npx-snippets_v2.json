@@ -1,0 +1,10 @@
+[
+  {
+    "id": "npx-serve",
+    "title": "Static File Server",
+    "description": "Serve static files from current directory with hot reload",
+    "language": "bash",
+    "code": "npx serve!!!!!!",
+    "_v": 2
+  }
+]
